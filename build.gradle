@@ -1,4 +1,5 @@
 apply plugin: 'java'
+apply plugin: 'cpp'
 
 sourceCompatibility = 1.5
 version = '1.0'
@@ -10,4 +11,18 @@ repositories {
 dependencies {
     compile 'com.sparkjava:spark-core:1.1.+'
     testCompile group: 'junit', name: 'junit', version: '4.11'
+}
+
+task javah {
+    // I guess this can be done a bit neater...
+    String inputClass = 'com.recursivepenguin.webcec.cec.LibCEC';
+    String inputClassPath = inputClass.replaceAll('\\.', '/')+".class"
+    String outputFile = "src/main/headers/LibCEC.h"
+    inputs.file sourceSets.main.output.asFileTree.matching {
+        include inputClassPath
+    }
+    outputs.file outputFile
+    doLast {
+        ant.javah(class: inputClass, outputFile: outputFile, classpath:sourceSets.main.output.asPath)
+    }
 }
