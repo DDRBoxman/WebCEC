@@ -4,6 +4,19 @@
 
 /*
  * Class:     com_recursivepenguin_webcec_cec_LibCEC
+ * Method:    setup
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_com_recursivepenguin_webcec_cec_LibCEC_setup
+  (JNIEnv *env, jobject obj)
+{
+  CEC::libcec_configuration *config = new CEC::libcec_configuration();
+  CEC::ICECAdapter* adapter = (CEC::ICECAdapter *) CECInitialise(config);
+  setHandle(env, obj, adapter);
+}
+
+/*
+ * Class:     com_recursivepenguin_webcec_cec_LibCEC
  * Method:    audioMute
  * Signature: ()V
  */
@@ -30,8 +43,12 @@ JNIEXPORT void JNICALL Java_com_recursivepenguin_webcec_cec_LibCEC_audioUnMute
  * Signature: ()Ljava/util/List;
  */
 JNIEXPORT jobject JNICALL Java_com_recursivepenguin_webcec_cec_LibCEC_detectAdapters
-  (JNIEnv *, jobject)
+  (JNIEnv *env, jobject obj)
   {
+      CEC::ICECAdapter *adapter = getHandle<CEC::ICECAdapter>(env, obj);
+
+      CEC::cec_adapter_descriptor devices[10];
+      int8_t iDevicesFound = adapter->DetectAdapters(devices, 10, NULL);
       return NULL;
   }
 

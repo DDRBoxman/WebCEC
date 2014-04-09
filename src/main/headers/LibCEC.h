@@ -9,6 +9,14 @@ extern "C" {
 #endif
 /*
  * Class:     com_recursivepenguin_webcec_cec_LibCEC
+ * Method:    setup
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_com_recursivepenguin_webcec_cec_LibCEC_setup
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     com_recursivepenguin_webcec_cec_LibCEC
  * Method:    audioMute
  * Signature: ()V
  */

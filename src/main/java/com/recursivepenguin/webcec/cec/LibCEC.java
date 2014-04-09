@@ -15,8 +15,12 @@ public class LibCEC {
     }
 
     public static LibCEC init() {
-        return null;
+        LibCEC libCEC = new LibCEC();
+        libCEC.setup();
+        return libCEC;
     }
+
+    private native void setup();
 
     public native void audioMute();
 
