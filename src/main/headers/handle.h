@@ -1,12 +1,9 @@
 #ifndef _HANDLE_H_INCLUDED_
 #define _HANDLE_H_INCLUDED_
 
-jfieldID getHandleField(JNIEnv *env, jobject obj)
-{
-    jclass c = env->GetObjectClass(obj);
-    // J is the type signature for long:
-    return env->GetFieldID(c, "nativeHandle", "J");
-}
+#include <jni.h>
+
+jfieldID getHandleField(JNIEnv *env, jobject obj);
 
 template <typename T>
 T *getHandle(JNIEnv *env, jobject obj)

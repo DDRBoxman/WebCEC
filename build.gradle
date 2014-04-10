@@ -1,6 +1,6 @@
 apply plugin: 'java'
 
-sourceCompatibility = 1.5
+sourceCompatibility = 1.7
 version = '1.0'
 
 repositories {
@@ -19,15 +19,14 @@ task(runSimple, dependsOn: 'classes', type: JavaExec) {
 }
 
 task javah {
-    // I guess this can be done a bit neater...
-    String inputClass = 'com.recursivepenguin.webcec.cec.LibCEC';
-    String inputClassPath = inputClass.replaceAll('\\.', '/')+".class"
-    String outputFile = "src/main/headers/LibCEC.h"
-    inputs.file sourceSets.main.output.asFileTree.matching {
-        include inputClassPath
-    }
-    outputs.file outputFile
+    inputs.files sourceSets.main.output
     doLast {
-        ant.javah(class: inputClass, outputFile: outputFile, classpath:sourceSets.main.output.asPath)
+        exec {
+            executable org.gradle.internal.jvm.Jvm.current().getExecutable('javah')
+            args '-d', 'src/main/headers/'
+            args '-classpath', sourceSets.main.output.classesDir
+            args 'com.recursivepenguin.webcec.cec.LibCEC'
+            args 'com.recursivepenguin.webcec.cec.CECAdapter'
+        }
     }
 }

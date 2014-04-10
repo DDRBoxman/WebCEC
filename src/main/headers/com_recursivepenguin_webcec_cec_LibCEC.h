@@ -33,10 +33,10 @@ JNIEXPORT void JNICALL Java_com_recursivepenguin_webcec_cec_LibCEC_audioUnMute
 
 /*
  * Class:     com_recursivepenguin_webcec_cec_LibCEC
- * Method:    detectAdapters
- * Signature: ()Ljava/util/List;
+ * Method:    detectAdaptersNative
+ * Signature: ()[J
  */
-JNIEXPORT jobject JNICALL Java_com_recursivepenguin_webcec_cec_LibCEC_detectAdapters
+JNIEXPORT jlongArray JNICALL Java_com_recursivepenguin_webcec_cec_LibCEC_detectAdaptersNative
   (JNIEnv *, jobject);
 
 /*
