@@ -9,10 +9,10 @@ extern "C" {
 #endif
 /*
  * Class:     com_recursivepenguin_webcec_cec_LibCEC
- * Method:    setup
+ * Method:    close
  * Signature: ()V
  */
-JNIEXPORT void JNICALL Java_com_recursivepenguin_webcec_cec_LibCEC_setup
+JNIEXPORT void JNICALL Java_com_recursivepenguin_webcec_cec_LibCEC_close
   (JNIEnv *, jobject);
 
 /*
@@ -33,6 +33,14 @@ JNIEXPORT void JNICALL Java_com_recursivepenguin_webcec_cec_LibCEC_audioUnMute
 
 /*
  * Class:     com_recursivepenguin_webcec_cec_LibCEC
+ * Method:    setup
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_com_recursivepenguin_webcec_cec_LibCEC_setup
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     com_recursivepenguin_webcec_cec_LibCEC
  * Method:    detectAdaptersNative
  * Signature: ()[J
  */
@@ -42,18 +50,10 @@ JNIEXPORT jlongArray JNICALL Java_com_recursivepenguin_webcec_cec_LibCEC_detectA
 /*
  * Class:     com_recursivepenguin_webcec_cec_LibCEC
  * Method:    open
- * Signature: (Lcom/recursivepenguin/webcec/cec/CECAdapter;)V
+ * Signature: (Ljava/lang/String;)Z
  */
-JNIEXPORT void JNICALL Java_com_recursivepenguin_webcec_cec_LibCEC_open
-  (JNIEnv *, jobject, jobject);
-
-/*
- * Class:     com_recursivepenguin_webcec_cec_LibCEC
- * Method:    close
- * Signature: ()V
- */
-JNIEXPORT void JNICALL Java_com_recursivepenguin_webcec_cec_LibCEC_close
-  (JNIEnv *, jobject);
+JNIEXPORT jboolean JNICALL Java_com_recursivepenguin_webcec_cec_LibCEC_open
+  (JNIEnv *, jobject, jstring);
 
 #ifdef __cplusplus
 }

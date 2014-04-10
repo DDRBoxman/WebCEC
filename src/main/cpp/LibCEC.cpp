@@ -64,12 +64,19 @@ JNIEXPORT jlongArray JNICALL Java_com_recursivepenguin_webcec_cec_LibCEC_detectA
 /*
  * Class:     com_recursivepenguin_webcec_cec_LibCEC
  * Method:    open
- * Signature: (Lcom/recursivepenguin/webcec/cec/CECAdapter;)V
+ * Signature: (Ljava/lang/String;)Z
  */
-JNIEXPORT void JNICALL Java_com_recursivepenguin_webcec_cec_LibCEC_open
-  (JNIEnv *, jobject, jobject)
+JNIEXPORT jboolean JNICALL Java_com_recursivepenguin_webcec_cec_LibCEC_open
+  (JNIEnv *env, jobject obj, jstring javaPathString)
   {
+     CEC::ICECAdapter *adapter = getHandle<CEC::ICECAdapter>(env, obj);
+     const char *nativeString = env->GetStringUTFChars(javaPathString, 0);
 
+     bool result = adapter->Open(nativeString);
+
+     env->ReleaseStringUTFChars(javaPathString, nativeString);
+
+     return result;
   }
 
 /*
@@ -80,5 +87,6 @@ JNIEXPORT void JNICALL Java_com_recursivepenguin_webcec_cec_LibCEC_open
 JNIEXPORT void JNICALL Java_com_recursivepenguin_webcec_cec_LibCEC_close
   (JNIEnv *, jobject)
   {
-
+    CEC::ICECAdapter *adapter = getHandle<CEC::ICECAdapter>(env, obj);
+    adapter->Close();
   }

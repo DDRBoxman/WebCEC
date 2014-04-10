@@ -13,6 +13,14 @@ public class Main {
         for (CECAdapter adapter : adapterList) {
             System.out.println(adapter.getCommPath());
         }
+
+        if (adapterList.size() > 0) {
+            boolean success = libCEC.open(adapterList.get(0));
+            System.out.println("Connection - " + (success ? "Successful" : "Failed"));
+            if (success) {
+                libCEC.close();
+            }
+        }
     }
 
 }

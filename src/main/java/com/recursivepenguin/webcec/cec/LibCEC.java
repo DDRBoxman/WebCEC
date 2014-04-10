@@ -31,15 +31,19 @@ public class LibCEC {
         return adapterList;
     }
 
-    private native void setup();
+    public boolean open(CECAdapter adapter) {
+        return open(adapter.getCommPath());
+    }
+
+    public native void close();
 
     public native void audioMute();
 
     public native void audioUnMute();
 
+    private native void setup();
+
     private native long[] detectAdaptersNative();
 
-    public native void open(CECAdapter adapter);
-
-    public native void close();
+    private native boolean open(String string);
 }
