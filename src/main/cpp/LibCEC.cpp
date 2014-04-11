@@ -11,6 +11,14 @@ JNIEXPORT void JNICALL Java_com_recursivepenguin_webcec_cec_LibCEC_setup
   (JNIEnv *env, jobject obj)
 {
   CEC::libcec_configuration *config = new CEC::libcec_configuration();
+
+  config->Clear();
+  snprintf(config->strDeviceName, 13, "CECTester");
+  config->clientVersion       = CEC::CEC_CLIENT_VERSION_CURRENT;
+  config->bActivateSource     = 0;
+
+  config->deviceTypes.Add(CEC::CEC_DEVICE_TYPE_RECORDING_DEVICE);
+
   CEC::ICECAdapter* adapter = (CEC::ICECAdapter *) CECInitialise(config);
   setHandle(env, obj, adapter);
 }
@@ -18,9 +26,9 @@ JNIEXPORT void JNICALL Java_com_recursivepenguin_webcec_cec_LibCEC_setup
 /*
  * Class:     com_recursivepenguin_webcec_cec_LibCEC
  * Method:    detectAdapters
- * Signature: ()Ljava/util/List;
+ * Signature: ()[Ljava/lang/String;
  */
-JNIEXPORT jlongArray JNICALL Java_com_recursivepenguin_webcec_cec_LibCEC_detectAdaptersNative
+JNIEXPORT jobjectArray JNICALL Java_com_recursivepenguin_webcec_cec_LibCEC_detectAdapters
   (JNIEnv *env, jobject obj)
   {
       CEC::ICECAdapter *adapter = getHandle<CEC::ICECAdapter>(env, obj);
@@ -28,23 +36,25 @@ JNIEXPORT jlongArray JNICALL Java_com_recursivepenguin_webcec_cec_LibCEC_detectA
       CEC::cec_adapter_descriptor devices[10];
       int8_t iDevicesFound = adapter->DetectAdapters(devices, 10, NULL);
 
-      jlong tempArray[iDevicesFound];
-      for (int i=0; i<iDevicesFound; i++) {
-        tempArray[i] = (jlong) &(devices[i]);
+      jstring str = NULL;
+      jclass strCls = env->FindClass("Ljava/lang/String;");
+      jobjectArray strarray = env->NewObjectArray(iDevicesFound,strCls,NULL);
+      for(int i=0; i<iDevicesFound; i++)
+      {
+        str = env->NewStringUTF(devices[i].strComPath);
+        env->SetObjectArrayElement(strarray,i,str);
+        env->DeleteLocalRef(str);
       }
 
-      jlongArray handles = env->NewLongArray(iDevicesFound);
-      env->SetLongArrayRegion(handles, 0, iDevicesFound, tempArray);
-
-      return handles;
+      return strarray;
   }
 
 /*
  * Class:     com_recursivepenguin_webcec_cec_LibCEC
- * Method:    getActiveDevicesNative
- * Signature: ()J
+ * Method:    getActiveDevices
+ * Signature: ()[I
  */
-JNIEXPORT jintArray JNICALL Java_com_recursivepenguin_webcec_cec_LibCEC_getActiveDevicesNative
+JNIEXPORT jintArray JNICALL Java_com_recursivepenguin_webcec_cec_LibCEC_getActiveDevices
   (JNIEnv *env, jobject obj)
   {
     CEC::ICECAdapter *adapter = getHandle<CEC::ICECAdapter>(env, obj);
@@ -95,7 +105,7 @@ JNIEXPORT jboolean JNICALL Java_com_recursivepenguin_webcec_cec_LibCEC_open
 
      env->ReleaseStringUTFChars(javaPathString, nativeString);
 
-     return result;
+     return result ? JNI_TRUE : JNI_FALSE;
   }
 
 /*

@@ -1,8 +1,5 @@
 package com.recursivepenguin.webcec.cec;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class LibCEC {
 
     static {
@@ -21,19 +18,9 @@ public class LibCEC {
         return libCEC;
     }
 
-    public List<CECAdapter> detectAdapters() {
-        List<CECAdapter> adapterList = new ArrayList<>();
-        long[] adapters = detectAdaptersNative();
-        for (long adapterHandle : adapters) {
-            adapterList.add(new CECAdapter(adapterHandle));
-        }
+    public native String[] detectAdapters();
 
-        return adapterList;
-    }
-
-    public boolean open(CECAdapter adapter) {
-        return open(adapter.getCommPath());
-    }
+    public native boolean open(String string);
 
     public native void close();
 
@@ -44,8 +31,4 @@ public class LibCEC {
     public native int getDevicePowerStatus(int address);
 
     private native void setup();
-
-    private native long[] detectAdaptersNative();
-
-    private native boolean open(String string);
 }

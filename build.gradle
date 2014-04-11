@@ -26,7 +26,6 @@ task javah {
             args '-d', 'src/main/headers/'
             args '-classpath', sourceSets.main.output.classesDir
             args 'com.recursivepenguin.webcec.cec.LibCEC'
-            args 'com.recursivepenguin.webcec.cec.CECAdapter'
         }
     }
 }

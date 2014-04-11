@@ -9,6 +9,22 @@ extern "C" {
 #endif
 /*
  * Class:     com_recursivepenguin_webcec_cec_LibCEC
+ * Method:    detectAdapters
+ * Signature: ()[Ljava/lang/String;
+ */
+JNIEXPORT jobjectArray JNICALL Java_com_recursivepenguin_webcec_cec_LibCEC_detectAdapters
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     com_recursivepenguin_webcec_cec_LibCEC
+ * Method:    open
+ * Signature: (Ljava/lang/String;)Z
+ */
+JNIEXPORT jboolean JNICALL Java_com_recursivepenguin_webcec_cec_LibCEC_open
+  (JNIEnv *, jobject, jstring);
+
+/*
+ * Class:     com_recursivepenguin_webcec_cec_LibCEC
  * Method:    close
  * Signature: ()V
  */
@@ -46,22 +62,6 @@ JNIEXPORT jint JNICALL Java_com_recursivepenguin_webcec_cec_LibCEC_getDevicePowe
  */
 JNIEXPORT void JNICALL Java_com_recursivepenguin_webcec_cec_LibCEC_setup
   (JNIEnv *, jobject);
-
-/*
- * Class:     com_recursivepenguin_webcec_cec_LibCEC
- * Method:    detectAdaptersNative
- * Signature: ()[J
- */
-JNIEXPORT jlongArray JNICALL Java_com_recursivepenguin_webcec_cec_LibCEC_detectAdaptersNative
-  (JNIEnv *, jobject);
-
-/*
- * Class:     com_recursivepenguin_webcec_cec_LibCEC
- * Method:    open
- * Signature: (Ljava/lang/String;)Z
- */
-JNIEXPORT jboolean JNICALL Java_com_recursivepenguin_webcec_cec_LibCEC_open
-  (JNIEnv *, jobject, jstring);
 
 #ifdef __cplusplus
 }
