@@ -18,6 +18,14 @@ public class Main {
             boolean success = libCEC.open(adapterList.get(0));
             System.out.println("Connection - " + (success ? "Successful" : "Failed"));
             if (success) {
+
+                int[] devices = libCEC.getActiveDevices();
+                for (int deviceAddress : devices) {
+                    System.out.println(deviceAddress);
+                    System.out.println(libCEC.getDeviceVendorId(deviceAddress));
+                    System.out.println(libCEC.getDevicePowerStatus(deviceAddress));
+                }
+
                 libCEC.close();
             }
         }

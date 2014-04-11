@@ -37,9 +37,11 @@ public class LibCEC {
 
     public native void close();
 
-    public native void audioMute();
+    public native int[] getActiveDevices();
 
-    public native void audioUnMute();
+    public native long getDeviceVendorId(int address);
+
+    public native int getDevicePowerStatus(int address);
 
     private native void setup();
 

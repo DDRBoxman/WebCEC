@@ -17,19 +17,27 @@ JNIEXPORT void JNICALL Java_com_recursivepenguin_webcec_cec_LibCEC_close
 
 /*
  * Class:     com_recursivepenguin_webcec_cec_LibCEC
- * Method:    audioMute
- * Signature: ()V
+ * Method:    getActiveDevices
+ * Signature: ()[I
  */
-JNIEXPORT void JNICALL Java_com_recursivepenguin_webcec_cec_LibCEC_audioMute
+JNIEXPORT jintArray JNICALL Java_com_recursivepenguin_webcec_cec_LibCEC_getActiveDevices
   (JNIEnv *, jobject);
 
 /*
  * Class:     com_recursivepenguin_webcec_cec_LibCEC
- * Method:    audioUnMute
- * Signature: ()V
+ * Method:    getDeviceVendorId
+ * Signature: (I)J
  */
-JNIEXPORT void JNICALL Java_com_recursivepenguin_webcec_cec_LibCEC_audioUnMute
-  (JNIEnv *, jobject);
+JNIEXPORT jlong JNICALL Java_com_recursivepenguin_webcec_cec_LibCEC_getDeviceVendorId
+  (JNIEnv *, jobject, jint);
+
+/*
+ * Class:     com_recursivepenguin_webcec_cec_LibCEC
+ * Method:    getDevicePowerStatus
+ * Signature: (I)I
+ */
+JNIEXPORT jint JNICALL Java_com_recursivepenguin_webcec_cec_LibCEC_getDevicePowerStatus
+  (JNIEnv *, jobject, jint);
 
 /*
  * Class:     com_recursivepenguin_webcec_cec_LibCEC
