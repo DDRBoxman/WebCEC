@@ -1,5 +1,8 @@
 package com.recursivepenguin.webcec;
 
+import com.recursivepenguin.webcec.cec.CECLogicalAddress;
+import com.recursivepenguin.webcec.cec.CECPowerStatus;
+import com.recursivepenguin.webcec.cec.CECVendorId;
 import com.recursivepenguin.webcec.cec.LibCEC;
 
 public class Main {
@@ -18,9 +21,12 @@ public class Main {
 
                 int[] devices = libCEC.getActiveDevices();
                 for (int deviceAddress : devices) {
-                    System.out.println(deviceAddress);
-                    System.out.println(libCEC.getDeviceVendorId(deviceAddress));
-                    System.out.println(libCEC.getDevicePowerStatus(deviceAddress));
+                    CECLogicalAddress address = CECLogicalAddress.fromInt(deviceAddress);
+                    System.out.println(address.name());
+                    CECVendorId vendorId = CECVendorId.fromLong(libCEC.getDeviceVendorId(deviceAddress));
+                    System.out.println(vendorId.name());
+                    CECPowerStatus powerStatus = CECPowerStatus.fromInt(libCEC.getDevicePowerStatus(deviceAddress));
+                    System.out.println(powerStatus.name());
                 }
 
                 libCEC.close();
